@@ -1,0 +1,65 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+}
+
+repositories {
+    mavenLocal()
+    maven {
+        url = uri('https://repo.maven.apache.org/maven2/')
+    }
+}
+
+dependencies {
+    api libs.jakarta.servlet.jsp.jstl.jakarta.servlet.jsp.jstl.api
+    api libs.org.glassfish.web.jakarta.servlet.jsp.jstl
+    api libs.mysql.mysql.connector.java
+    api libs.com.zaxxer.hikaricp
+    api libs.org.jdbi.jdbi3.core
+    api libs.com.google.api.client.google.api.client
+    api libs.com.google.code.gson.gson
+    api libs.org.mindrot.jbcrypt
+    api libs.jakarta.mail.jakarta.mail.api
+    api libs.com.sun.mail.jakarta.mail
+    api libs.org.slf4j.slf4j.api
+    api libs.org.slf4j.slf4j.simple
+    api libs.com.auth0.java.jwt
+    testImplementation libs.org.junit.jupiter.junit.jupiter.api
+    testImplementation libs.org.junit.jupiter.junit.jupiter.engine
+    compileOnly libs.jakarta.servlet.jakarta.servlet.api
+    compileOnly libs.jakarta.servlet.jsp.jakarta.servlet.jsp.api
+    compileOnly libs.org.projectlombok.lombok
+    annotationProcessor 'org.projectlombok:lombok:1.18.30'
+}
+
+group = 'com.drumstore'
+version = '1.0-SNAPSHOT'
+description = 'drum_store'
+java.sourceCompatibility = JavaVersion.VERSION_21
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            from(components.java)
+        }
+    }
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(Javadoc) {
+    options.encoding = 'UTF-8'
+}
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += '--enable-preview'
+}
+
+tasks.withType(JavaExec).configureEach {
+    jvmArgs += '--enable-preview'
+}
+
+tasks.withType(Test).configureEach {
+    jvmArgs += '--enable-preview'
+}
